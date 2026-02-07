@@ -10,17 +10,18 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 namespace DumpBudgetApplication
 {
-    public partial class BudgetList : Form
+    public partial class ExpensesList : Form
     {
-        public BudgetList()
+        public ExpensesList()
         {
             InitializeComponent();
         }
 
         private void BudgetList_Load(object sender, EventArgs e)
         {
-        LoadCategoryItems();
-        LoadItems();
+            ComboOrderby.SelectedIndex = 0;
+            LoadCategoryItems();
+            LoadItems();
         }
         void LoadItems()
         {
@@ -30,17 +31,22 @@ namespace DumpBudgetApplication
 
             string sql = $@"
                          SELECT c.Name AS category, t.price, t.description
-                         FROM tableitems t
+                         FROM tblexpenses t
                          INNER JOIN categorylist c
                          ON t.Category = c.Category
                          where 1 = 1
 ";
             if (!string.IsNullOrEmpty(ComboCategory.Text))
-            {sql += $@" and c.Category =  {ComboCategory.SelectedIndex + 1}";}
+            { sql += $@" and c.Category =  {ComboCategory.SelectedIndex + 1}"; }
             if (UpDownBox.Value > 0)
             { sql += $@" and t.price like  '%{UpDownBox.Value}%'"; }
             if (!string.IsNullOrEmpty(TBDescription.Text))
             { sql += $@" and t.description like  '%{TBDescription.Text}%'"; }
+            if (ComboOrderby.SelectedIndex == 0)
+            { sql += $@" ORDER BY t.price DESC"; }
+            if (ComboOrderby.SelectedIndex == 1)
+            { sql += $@" ORDER BY t.price ASC"; }
+
 
 
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
@@ -83,7 +89,7 @@ namespace DumpBudgetApplication
         }
 
         class ItemsDTO
-            {
+        {
             public string Category { get; set; }
             public double Price { get; set; }
             public string Description { get; set; }
@@ -103,9 +109,17 @@ namespace DumpBudgetApplication
         {
             ComboCategory.Text = string.Empty;
             UpDownBox.Value = 0;
-            TBDescription.Text = string.Empty;
+            //TBDescription.Text = string.Empty;
+
+            DataViewGrid.DataSource = null;
+            DataViewGrid.Rows.Clear();
+            DataViewGrid.Refresh();
             LoadItems();
         }
 
+        private void LabelDescription_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

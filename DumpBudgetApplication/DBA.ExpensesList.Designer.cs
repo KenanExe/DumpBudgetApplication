@@ -1,6 +1,6 @@
 ﻿namespace DumpBudgetApplication
 {
-    partial class BudgetList
+    partial class ExpensesList
     {
         /// <summary>
         /// Required designer variable.
@@ -38,6 +38,8 @@
             LabelDescription = new Label();
             BtnClear = new Button();
             UpDownBox = new NumericUpDown();
+            ComboOrderby = new ComboBox();
+            LableOrderBy = new Label();
             ((System.ComponentModel.ISupportInitialize)DataViewGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)UpDownBox).BeginInit();
             SuspendLayout();
@@ -52,7 +54,7 @@
             DataViewGrid.Location = new Point(10, 62);
             DataViewGrid.Name = "DataViewGrid";
             DataViewGrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            DataViewGrid.Size = new Size(509, 353);
+            DataViewGrid.Size = new Size(550, 353);
             DataViewGrid.TabIndex = 0;
             // 
             // ComboCategory
@@ -94,7 +96,7 @@
             // BtnAddExpenses
             // 
             BtnAddExpenses.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            BtnAddExpenses.Location = new Point(427, 418);
+            BtnAddExpenses.Location = new Point(468, 418);
             BtnAddExpenses.Name = "BtnAddExpenses";
             BtnAddExpenses.Size = new Size(92, 23);
             BtnAddExpenses.TabIndex = 8;
@@ -103,7 +105,7 @@
             // 
             // TBDescription
             // 
-            TBDescription.Location = new Point(219, 33);
+            TBDescription.Location = new Point(325, 34);
             TBDescription.Name = "TBDescription";
             TBDescription.Size = new Size(100, 23);
             TBDescription.TabIndex = 10;
@@ -112,15 +114,16 @@
             // LabelDescription
             // 
             LabelDescription.AutoSize = true;
-            LabelDescription.Location = new Point(233, 15);
+            LabelDescription.Location = new Point(342, 16);
             LabelDescription.Name = "LabelDescription";
             LabelDescription.Size = new Size(67, 15);
             LabelDescription.TabIndex = 11;
             LabelDescription.Text = "Description";
+            LabelDescription.Click += LabelDescription_Click;
             // 
             // BtnClear
             // 
-            BtnClear.Location = new Point(325, 32);
+            BtnClear.Location = new Point(444, 33);
             BtnClear.Name = "BtnClear";
             BtnClear.Size = new Size(75, 23);
             BtnClear.TabIndex = 12;
@@ -136,11 +139,32 @@
             UpDownBox.TabIndex = 13;
             UpDownBox.ValueChanged += combocategory_SelectedIndexChanged;
             // 
-            // BudgetList
+            // ComboOrderby
+            // 
+            ComboOrderby.FormattingEnabled = true;
+            ComboOrderby.Items.AddRange(new object[] { "Hight to Low", "Low to Hight" });
+            ComboOrderby.Location = new Point(219, 34);
+            ComboOrderby.Name = "ComboOrderby";
+            ComboOrderby.Size = new Size(100, 23);
+            ComboOrderby.TabIndex = 14;
+            ComboOrderby.TextChanged += combocategory_SelectedIndexChanged;
+            // 
+            // LableOrderBy
+            // 
+            LableOrderBy.AutoSize = true;
+            LableOrderBy.Location = new Point(237, 16);
+            LableOrderBy.Name = "LableOrderBy";
+            LableOrderBy.Size = new Size(53, 15);
+            LableOrderBy.TabIndex = 15;
+            LableOrderBy.Text = "Order By";
+            // 
+            // ExpensesList
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(527, 442);
+            ClientSize = new Size(568, 442);
+            Controls.Add(LableOrderBy);
+            Controls.Add(ComboOrderby);
             Controls.Add(UpDownBox);
             Controls.Add(BtnClear);
             Controls.Add(LabelDescription);
@@ -151,7 +175,7 @@
             Controls.Add(LabelCategory);
             Controls.Add(ComboCategory);
             Controls.Add(DataViewGrid);
-            Name = "BudgetList";
+            Name = "ExpensesList";
             Text = "BudgetList";
             Load += BudgetList_Load;
             ((System.ComponentModel.ISupportInitialize)DataViewGrid).EndInit();
@@ -172,5 +196,7 @@
         private Label LabelDescription;
         private Button BtnClear;
         private NumericUpDown UpDownBox;
+        private ComboBox ComboOrderby;
+        private Label LableOrderBy;
     }
 }

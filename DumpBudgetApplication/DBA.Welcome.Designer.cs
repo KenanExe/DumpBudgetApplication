@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -38,6 +41,10 @@
             BtnIncomeAdd = new Button();
             BtnBudgetList = new Button();
             BtnExpensesAdd = new Button();
+            BtnIncomeList = new Button();
+            BtnExpensesList = new Button();
+            chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -70,7 +77,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(313, 106);
+            label4.Location = new Point(362, 80);
             label4.Name = "label4";
             label4.Size = new Size(54, 15);
             label4.TabIndex = 3;
@@ -97,11 +104,11 @@
             // SQLExpensesLabel
             // 
             SQLExpensesLabel.AutoSize = true;
-            SQLExpensesLabel.Location = new Point(299, 136);
+            SQLExpensesLabel.Location = new Point(332, 105);
             SQLExpensesLabel.Name = "SQLExpensesLabel";
-            SQLExpensesLabel.Size = new Size(78, 15);
+            SQLExpensesLabel.Size = new Size(119, 15);
             SQLExpensesLabel.TabIndex = 6;
-            SQLExpensesLabel.Text = "SQL.Expenses";
+            SQLExpensesLabel.Text = "Total Expenses: 00000";
             // 
             // BtnIncomeAdd
             // 
@@ -124,18 +131,60 @@
             // 
             // BtnExpensesAdd
             // 
-            BtnExpensesAdd.Location = new Point(289, 303);
+            BtnExpensesAdd.Location = new Point(344, 303);
             BtnExpensesAdd.Name = "BtnExpensesAdd";
             BtnExpensesAdd.Size = new Size(107, 34);
             BtnExpensesAdd.TabIndex = 9;
             BtnExpensesAdd.Text = "Expenses Add";
             BtnExpensesAdd.UseVisualStyleBackColor = true;
             // 
+            // BtnIncomeList
+            // 
+            BtnIncomeList.Location = new Point(25, 263);
+            BtnIncomeList.Name = "BtnIncomeList";
+            BtnIncomeList.Size = new Size(107, 34);
+            BtnIncomeList.TabIndex = 10;
+            BtnIncomeList.Text = "Income List";
+            BtnIncomeList.UseVisualStyleBackColor = true;
+            // 
+            // BtnExpensesList
+            // 
+            BtnExpensesList.Location = new Point(344, 263);
+            BtnExpensesList.Name = "BtnExpensesList";
+            BtnExpensesList.Size = new Size(107, 34);
+            BtnExpensesList.TabIndex = 11;
+            BtnExpensesList.Text = "Expenses List";
+            BtnExpensesList.UseVisualStyleBackColor = true;
+            BtnExpensesList.Click += BtnExpensesList_Click;
+            // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            chart1.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
+            legend1.Name = "Legend1";
+            chart1.Legends.Add(legend1);
+            chart1.Location = new Point(320, 123);
+            chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pyramid;
+            series1.IsXValueIndexed = true;
+            series1.Legend = "Legend1";
+            series1.MarkerSize = 1;
+            series1.Name = "Series1";
+            chart1.Series.Add(series1);
+            chart1.Size = new Size(148, 134);
+            chart1.TabIndex = 12;
+            chart1.Text = "chart1";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(424, 349);
+            ClientSize = new Size(505, 362);
+            Controls.Add(chart1);
+            Controls.Add(BtnExpensesList);
+            Controls.Add(BtnIncomeList);
             Controls.Add(BtnExpensesAdd);
             Controls.Add(BtnBudgetList);
             Controls.Add(BtnIncomeAdd);
@@ -148,6 +197,8 @@
             Controls.Add(label1);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
+            ((System.ComponentModel.ISupportInitialize)chart1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -164,5 +215,8 @@
         private Button BtnIncomeAdd;
         private Button BtnBudgetList;
         private Button BtnExpensesAdd;
+        private Button BtnIncomeList;
+        private Button BtnExpensesList;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }
