@@ -89,7 +89,7 @@
             LabelItem.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             LabelItem.Location = new Point(10, 422);
             LabelItem.Name = "LabelItem";
-            LabelItem.Size = new Size(58, 15);
+            LabelItem.Size = new Size(143, 19);
             LabelItem.TabIndex = 7;
             LabelItem.Text = "0000 Item";
             // 

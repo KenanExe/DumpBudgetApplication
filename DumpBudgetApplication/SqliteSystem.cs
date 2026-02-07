@@ -172,7 +172,7 @@ namespace DumpBudgetApplication
             sql = @"insert into categorylist (Category, Name, Description) values (2, 'Transportation', 'Fuel, public transport, taxi, and vehicle maintenance')";
             new SQLiteCommand(sql, m_dbConnection).ExecuteNonQuery();
 
-            sql = @"insert into categorylist (Category, Name, Description) values (3, 'Rent & Leasing', 'Office rent, virtual office fees, and building maintenance')";
+            sql = @"insert into categorylist (Category, Name, Description) values (3, 'Rent', 'Office rent, virtual office fees, and building maintenance')";
             new SQLiteCommand(sql, m_dbConnection).ExecuteNonQuery();
 
             sql = @"insert into categorylist (Category, Name, Description) values (4, 'Utilities', 'Electricity, water, gas, internet, and phone bills')";

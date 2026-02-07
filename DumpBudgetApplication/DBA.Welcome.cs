@@ -1,3 +1,4 @@
+using System;
 using System.Data.SQLite;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -11,6 +12,7 @@ namespace DumpBudgetApplication
         {
             InitializeComponent();
             ExpensesChartData();
+            CenterControls();
         }
 
         private void BtnBudgetList_Click(object sender, EventArgs e)
@@ -64,10 +66,35 @@ namespace DumpBudgetApplication
             List<expsenseDTO> items = new List<expsenseDTO>();
 
 
-            chart1.Series.Clear();
+            ExpensesChart.Series.Clear();
             Series s = new Series("itemsExpenses");
-            s.ChartType = SeriesChartType.Pyramid;
-            s["PyramidLabelStyle"] = "Inside";
+            s.ChartType = SeriesChartType.Doughnut;
+            s["PieLabelStyle"] = "Disabled";
+
+            BudgetChart.Series.Clear();
+            BudgetChart.ChartAreas.Clear();
+            BudgetChart.Legends.Clear();
+
+            ChartArea area = new ChartArea();
+            BudgetChart.ChartAreas.Add(area);
+
+            Legend legend = new Legend();
+            BudgetChart.Legends.Add(legend);
+
+            Series Income = new Series("Income");
+            Income.ChartType = SeriesChartType.Column;
+            Income.Color = Color.DodgerBlue;
+            Income.IsValueShownAsLabel = true;
+
+            Series Expsenses = new Series("Expsenses");
+            Expsenses.ChartType = SeriesChartType.Column;
+            Expsenses.Color = Color.IndianRed;
+            Expsenses.IsValueShownAsLabel = true;
+
+            BudgetChart.Series.Add(Income);
+            BudgetChart.Series.Add(Expsenses);
+
+
 
 
             while (reader.Read())
@@ -76,10 +103,10 @@ namespace DumpBudgetApplication
                 item.Category = reader["CategoryName"].ToString();
                 item.TotalExpense = Convert.ToDouble(reader["TotalExpense"]);
                 items.Add(item);
-            s.Points.Add(new DataPoint() { YValues = new double[] { item.TotalExpense }, Label = item.Category });
+                s.Points.Add(new DataPoint() { YValues = new double[] { item.TotalExpense }, Label = item.Category });
             }
-            SQLExpensesLabel.Text = $"Total Expenses: {items.Sum(x => x.TotalExpense)}$";
-            chart1.Series.Add(s);
+            SQLExpensesTotalLabel.Text = $"Total Expenses: ${items.Sum(x => x.TotalExpense)}";
+            ExpensesChart.Series.Add(s);
             m_dbConnection.Close();
         }
         class expsenseDTO
@@ -93,5 +120,35 @@ namespace DumpBudgetApplication
             T form = new T();
             form.Show();
         }
+
+        private void CenterControls()
+        {
+            IncomePanel_Center();
+            BudgetePanel_Center();
+            ExpensesPanel_Center();
+        }
+
+        private void IncomePanel_Center()
+        {
+            IncomeLabel.Left = (IncomePanel.ClientSize.Width - IncomeLabel.Width) / 2;
+            SQLIncomeTotalLabel.Left = (IncomePanel.ClientSize.Width - SQLIncomeTotalLabel.Width) / 2;
+            SQLIncome2Label.Left = (IncomePanel.ClientSize.Width - SQLIncome2Label.Width) / 2;
+
+        }
+        private void BudgetePanel_Center()
+        {
+            BudgetLabel.Left = (BudgetPanel.ClientSize.Width - IncomeLabel.Width) / 2;
+            SQLBudgetAllocatedLabel.Left = (BudgetPanel.ClientSize.Width - SQLBudgetAllocatedLabel.Width) / 2;
+            SQLBudgetRemaninLabel.Left = (BudgetPanel.ClientSize.Width - SQLBudgetRemaninLabel.Width) / 2;
+
+        }
+        private void ExpensesPanel_Center()
+        {
+            ExpensesLabel.Left = (ExpensesPanel.ClientSize.Width - ExpensesLabel.Width) / 2;
+            SQLExpensesPendingLabel.Left = (ExpensesPanel.ClientSize.Width - SQLExpensesPendingLabel.Width) / 2;
+            SQLExpensesTotalLabel.Left = (ExpensesPanel.ClientSize.Width - SQLExpensesTotalLabel.Width) / 2;
+
+        }
+
     }
 }
