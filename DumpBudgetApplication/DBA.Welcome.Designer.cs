@@ -256,8 +256,11 @@
             // 
             chartArea2.Name = "ChartArea1";
             BudgetChart.ChartAreas.Add(chartArea2);
+            legend2.Alignment = StringAlignment.Center;
+            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
             legend2.Enabled = false;
             legend2.Name = "Legend1";
+            legend2.TitleFont = new Font("Microsoft Sans Serif", 6F, FontStyle.Bold, GraphicsUnit.Point, 162);
             BudgetChart.Legends.Add(legend2);
             BudgetChart.Location = new Point(25, 153);
             BudgetChart.Name = "BudgetChart";

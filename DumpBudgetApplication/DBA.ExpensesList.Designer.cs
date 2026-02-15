@@ -34,12 +34,12 @@
             LabelPrice = new Label();
             LabelItem = new Label();
             BtnAddExpenses = new Button();
-            TBDescription = new TextBox();
-            LabelDescription = new Label();
+            LabelDate = new Label();
             BtnClear = new Button();
             UpDownBox = new NumericUpDown();
             ComboOrderby = new ComboBox();
             LableOrderBy = new Label();
+            dateTimePicker1 = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)DataViewGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)UpDownBox).BeginInit();
             SuspendLayout();
@@ -103,27 +103,20 @@
             BtnAddExpenses.Text = "Add Expenses";
             BtnAddExpenses.UseVisualStyleBackColor = true;
             // 
-            // TBDescription
+            // LabelDate
             // 
-            TBDescription.Location = new Point(325, 34);
-            TBDescription.Name = "TBDescription";
-            TBDescription.Size = new Size(100, 23);
-            TBDescription.TabIndex = 10;
-            TBDescription.TextChanged += combocategory_SelectedIndexChanged;
-            // 
-            // LabelDescription
-            // 
-            LabelDescription.AutoSize = true;
-            LabelDescription.Location = new Point(342, 16);
-            LabelDescription.Name = "LabelDescription";
-            LabelDescription.Size = new Size(67, 15);
-            LabelDescription.TabIndex = 11;
-            LabelDescription.Text = "Description";
-            LabelDescription.Click += LabelDescription_Click;
+            LabelDate.AutoSize = true;
+            LabelDate.Location = new Point(358, 16);
+            LabelDate.Name = "LabelDate";
+            LabelDate.Size = new Size(31, 15);
+            LabelDate.TabIndex = 11;
+            LabelDate.Text = "Date";
+            LabelDate.Click += LabelDescription_Click;
             // 
             // BtnClear
             // 
-            BtnClear.Location = new Point(444, 33);
+            BtnClear.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            BtnClear.Location = new Point(485, 34);
             BtnClear.Name = "BtnClear";
             BtnClear.Size = new Size(75, 23);
             BtnClear.TabIndex = 12;
@@ -158,17 +151,27 @@
             LableOrderBy.TabIndex = 15;
             LableOrderBy.Text = "Order By";
             // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Checked = false;
+            dateTimePicker1.CustomFormat = "";
+            dateTimePicker1.Format = DateTimePickerFormat.Short;
+            dateTimePicker1.Location = new Point(325, 34);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(100, 23);
+            dateTimePicker1.TabIndex = 16;
+            // 
             // ExpensesList
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(568, 442);
+            Controls.Add(dateTimePicker1);
             Controls.Add(LableOrderBy);
             Controls.Add(ComboOrderby);
             Controls.Add(UpDownBox);
             Controls.Add(BtnClear);
-            Controls.Add(LabelDescription);
-            Controls.Add(TBDescription);
+            Controls.Add(LabelDate);
             Controls.Add(BtnAddExpenses);
             Controls.Add(LabelItem);
             Controls.Add(LabelPrice);
@@ -193,10 +196,11 @@
         private Label LabelItem;
         private Button BtnAddExpenses;
         private TextBox TBDescription;
-        private Label LabelDescription;
+        private Label LabelDate;
         private Button BtnClear;
         private NumericUpDown UpDownBox;
         private ComboBox ComboOrderby;
         private Label LableOrderBy;
+        private DateTimePicker dateTimePicker1;
     }
 }

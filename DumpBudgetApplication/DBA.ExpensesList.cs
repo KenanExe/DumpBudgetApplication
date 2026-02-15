@@ -40,8 +40,6 @@ namespace DumpBudgetApplication
             { sql += $@" and c.Category =  {ComboCategory.SelectedIndex + 1}"; }
             if (UpDownBox.Value > 0)
             { sql += $@" and t.price like  '%{UpDownBox.Value}%'"; }
-            if (!string.IsNullOrEmpty(TBDescription.Text))
-            { sql += $@" and t.description like  '%{TBDescription.Text}%'"; }
             if (ComboOrderby.SelectedIndex == 0)
             { sql += $@" ORDER BY t.price DESC"; }
             if (ComboOrderby.SelectedIndex == 1)
