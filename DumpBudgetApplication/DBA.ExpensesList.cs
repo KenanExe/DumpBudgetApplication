@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using static System.Net.Mime.MediaTypeNames;
+using System.Drawing.Printing;
 namespace DumpBudgetApplication
 {
     public partial class ExpensesList : Form
@@ -15,7 +17,9 @@ namespace DumpBudgetApplication
         public ExpensesList()
         {
             InitializeComponent();
+            DataViewGrid.MouseWheel += DataViewGrid_MouseWheel;
         }
+
 
         private void BudgetList_Load(object sender, EventArgs e)
         {
@@ -23,8 +27,21 @@ namespace DumpBudgetApplication
             LoadCategoryItems();
             LoadItems();
         }
+
+
+            int pageSize = 16;
+            int page = 0;
+            int listCount = 0;
+        int limitdata = 0;
+        int uplimitData = 0;
+        bool canUp = true;
+        bool canDown = false;
+
         void LoadItems()
         {
+            limitdata = pageSize;
+            uplimitData = page * pageSize;
+
             SQLiteConnection m_dbConnection;
             m_dbConnection = new SQLiteConnection("Data Source=DBADataBase.sqlite;Version=3;");
             m_dbConnection.Open();
@@ -40,11 +57,14 @@ namespace DumpBudgetApplication
             { sql += $@" and c.Category =  {ComboCategory.SelectedIndex + 1}"; }
             if (UpDownBox.Value > 0)
             { sql += $@" and t.price like  '%{UpDownBox.Value}%'"; }
+
+            
             if (ComboOrderby.SelectedIndex == 0)
             { sql += $@" ORDER BY t.price DESC"; }
             if (ComboOrderby.SelectedIndex == 1)
             { sql += $@" ORDER BY t.price ASC"; }
 
+            sql += $@" LIMIT {limitdata} OFFSET {uplimitData}";
 
 
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
@@ -59,7 +79,10 @@ namespace DumpBudgetApplication
                 items.Add(item);
             }
             DataViewGrid.DataSource = items;
+            listCount = items.Count;
             m_dbConnection.Close();
+
+            CheckButtons();
         }
         void LoadCategoryItems()
         {
@@ -107,6 +130,7 @@ namespace DumpBudgetApplication
         {
             ComboCategory.Text = string.Empty;
             UpDownBox.Value = 0;
+            page = 0;
             //TBDescription.Text = string.Empty;
 
             DataViewGrid.DataSource = null;
@@ -119,7 +143,75 @@ namespace DumpBudgetApplication
         {
 
         }
+        void CheckButtons()
+        {
+            if (page > 0)
+            {
+                canDown = true;
+            }
+            if (page <= 0)
+            {
+                canDown = false;
+            }
 
-        
+            if (pageSize <= listCount )
+            {
+                canUp = true;
+            }
+            if (pageSize > listCount)
+            {
+                canUp = false;
+            }
+
+            if (canDown)
+            {
+                btnDown.Enabled = true;
+            } else
+            {
+                btnDown.Enabled = false;
+            }
+
+            if (canUp)
+            {
+                btnUp.Enabled = true;
+            }
+            else
+            {
+                btnUp.Enabled = false;
+            }
+
+        }
+
+        private void PageUp(object sender, EventArgs e)
+        {
+            CheckButtons();
+            if (canUp)
+            {
+            page++;
+            LoadItems();
+            }
+        }
+        private void PageDown(object sender, EventArgs e)
+        {
+            CheckButtons();
+            if (canDown)
+            {
+                page--;
+                LoadItems();
+            }
+        }
+
+        private void DataViewGrid_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                btnUp.PerformClick();
+            }
+            if (e.Delta < 0)
+            {
+                btnDown.PerformClick();
+            }
+        }
+
     }
 }

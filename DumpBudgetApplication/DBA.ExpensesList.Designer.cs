@@ -40,6 +40,8 @@
             ComboOrderby = new ComboBox();
             LableOrderBy = new Label();
             dateTimePicker1 = new DateTimePicker();
+            btnUp = new Button();
+            btnDown = new Button();
             ((System.ComponentModel.ISupportInitialize)DataViewGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)UpDownBox).BeginInit();
             SuspendLayout();
@@ -54,7 +56,7 @@
             DataViewGrid.Location = new Point(10, 62);
             DataViewGrid.Name = "DataViewGrid";
             DataViewGrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            DataViewGrid.Size = new Size(550, 353);
+            DataViewGrid.Size = new Size(550, 401);
             DataViewGrid.TabIndex = 0;
             // 
             // ComboCategory
@@ -87,7 +89,7 @@
             // LabelItem
             // 
             LabelItem.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            LabelItem.Location = new Point(10, 422);
+            LabelItem.Location = new Point(10, 470);
             LabelItem.Name = "LabelItem";
             LabelItem.Size = new Size(143, 19);
             LabelItem.TabIndex = 7;
@@ -96,7 +98,7 @@
             // BtnAddExpenses
             // 
             BtnAddExpenses.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            BtnAddExpenses.Location = new Point(468, 418);
+            BtnAddExpenses.Location = new Point(468, 466);
             BtnAddExpenses.Name = "BtnAddExpenses";
             BtnAddExpenses.Size = new Size(92, 23);
             BtnAddExpenses.TabIndex = 8;
@@ -115,7 +117,6 @@
             // 
             // BtnClear
             // 
-            BtnClear.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             BtnClear.Location = new Point(485, 34);
             BtnClear.Name = "BtnClear";
             BtnClear.Size = new Size(75, 23);
@@ -161,11 +162,35 @@
             dateTimePicker1.Size = new Size(100, 23);
             dateTimePicker1.TabIndex = 16;
             // 
+            // btnUp
+            // 
+            btnUp.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnUp.Location = new Point(430, 466);
+            btnUp.Name = "btnUp";
+            btnUp.Size = new Size(32, 23);
+            btnUp.TabIndex = 17;
+            btnUp.Text = ">>";
+            btnUp.UseVisualStyleBackColor = true;
+            btnUp.Click += PageUp;
+            // 
+            // btnDown
+            // 
+            btnDown.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnDown.Location = new Point(393, 466);
+            btnDown.Name = "btnDown";
+            btnDown.Size = new Size(32, 23);
+            btnDown.TabIndex = 18;
+            btnDown.Text = "<<";
+            btnDown.UseVisualStyleBackColor = true;
+            btnDown.Click += PageDown;
+            // 
             // ExpensesList
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(568, 442);
+            ClientSize = new Size(568, 490);
+            Controls.Add(btnDown);
+            Controls.Add(btnUp);
             Controls.Add(dateTimePicker1);
             Controls.Add(LableOrderBy);
             Controls.Add(ComboOrderby);
@@ -202,5 +227,7 @@
         private ComboBox ComboOrderby;
         private Label LableOrderBy;
         private DateTimePicker dateTimePicker1;
+        private Button btnUp;
+        private Button btnDown;
     }
 }

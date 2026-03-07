@@ -12,8 +12,6 @@ namespace DumpBudgetApplication
         public Form1()
         {
             InitializeComponent();
-            ExpensesChartData();
-            CenterControls();
         }
 
         private void BtnBudgetList_Click(object sender, EventArgs e)
@@ -28,7 +26,8 @@ namespace DumpBudgetApplication
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            ExpensesChartData();
+            CenterControls();
         }
 
 
