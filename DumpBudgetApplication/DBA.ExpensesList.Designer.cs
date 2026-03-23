@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataViewGrid = new DataGridView();
             ComboCategory = new ComboBox();
             LabelCategory = new Label();
             LabelPrice = new Label();
-            LabelItem = new Label();
+            lbCount = new Label();
             BtnAddExpenses = new Button();
             LabelDate = new Label();
             BtnClear = new Button();
@@ -48,15 +51,30 @@
             // 
             // DataViewGrid
             // 
+            DataViewGrid.AllowUserToAddRows = false;
+            DataViewGrid.AllowUserToDeleteRows = false;
+            DataViewGrid.AllowUserToResizeColumns = false;
+            DataViewGrid.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            DataViewGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             DataViewGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            DataViewGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            DataViewGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            DataViewGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             DataViewGrid.CellBorderStyle = DataGridViewCellBorderStyle.Raised;
             DataViewGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            DataViewGrid.DefaultCellStyle = dataGridViewCellStyle2;
             DataViewGrid.Location = new Point(10, 62);
             DataViewGrid.Name = "DataViewGrid";
             DataViewGrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            DataViewGrid.Size = new Size(550, 401);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            DataViewGrid.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            DataViewGrid.Size = new Size(496, 352);
             DataViewGrid.TabIndex = 0;
             // 
             // ComboCategory
@@ -86,19 +104,19 @@
             LabelPrice.TabIndex = 5;
             LabelPrice.Text = "Price";
             // 
-            // LabelItem
+            // lbCount
             // 
-            LabelItem.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            LabelItem.Location = new Point(10, 470);
-            LabelItem.Name = "LabelItem";
-            LabelItem.Size = new Size(143, 19);
-            LabelItem.TabIndex = 7;
-            LabelItem.Text = "0000 Item";
+            lbCount.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lbCount.Location = new Point(10, 421);
+            lbCount.Name = "lbCount";
+            lbCount.Size = new Size(377, 19);
+            lbCount.TabIndex = 7;
+            lbCount.Text = "0000 Item";
             // 
             // BtnAddExpenses
             // 
             BtnAddExpenses.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            BtnAddExpenses.Location = new Point(468, 466);
+            BtnAddExpenses.Location = new Point(414, 417);
             BtnAddExpenses.Name = "BtnAddExpenses";
             BtnAddExpenses.Size = new Size(92, 23);
             BtnAddExpenses.TabIndex = 8;
@@ -117,7 +135,8 @@
             // 
             // BtnClear
             // 
-            BtnClear.Location = new Point(485, 34);
+            BtnClear.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BtnClear.Location = new Point(431, 34);
             BtnClear.Name = "BtnClear";
             BtnClear.Size = new Size(75, 23);
             BtnClear.TabIndex = 12;
@@ -165,7 +184,7 @@
             // btnUp
             // 
             btnUp.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnUp.Location = new Point(430, 466);
+            btnUp.Location = new Point(376, 417);
             btnUp.Name = "btnUp";
             btnUp.Size = new Size(32, 23);
             btnUp.TabIndex = 17;
@@ -176,7 +195,7 @@
             // btnDown
             // 
             btnDown.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnDown.Location = new Point(393, 466);
+            btnDown.Location = new Point(339, 417);
             btnDown.Name = "btnDown";
             btnDown.Size = new Size(32, 23);
             btnDown.TabIndex = 18;
@@ -188,7 +207,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(568, 490);
+            ClientSize = new Size(514, 441);
             Controls.Add(btnDown);
             Controls.Add(btnUp);
             Controls.Add(dateTimePicker1);
@@ -198,11 +217,12 @@
             Controls.Add(BtnClear);
             Controls.Add(LabelDate);
             Controls.Add(BtnAddExpenses);
-            Controls.Add(LabelItem);
+            Controls.Add(lbCount);
             Controls.Add(LabelPrice);
             Controls.Add(LabelCategory);
             Controls.Add(ComboCategory);
             Controls.Add(DataViewGrid);
+            MinimumSize = new Size(526, 180);
             Name = "ExpensesList";
             Text = "BudgetList";
             Load += BudgetList_Load;
@@ -218,7 +238,7 @@
         private ComboBox ComboCategory;
         private Label LabelCategory;
         private Label LabelPrice;
-        private Label LabelItem;
+        private Label lbCount;
         private Button BtnAddExpenses;
         private TextBox TBDescription;
         private Label LabelDate;

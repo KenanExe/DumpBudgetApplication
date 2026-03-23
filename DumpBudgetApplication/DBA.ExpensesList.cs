@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Data.SQLite;
-using static System.Net.Mime.MediaTypeNames;
-using System.Drawing.Printing;
+﻿using System.Data.SQLite;
 namespace DumpBudgetApplication
 {
     public partial class ExpensesList : Form
     {
+        int pageSize = 10;
+        int page = 0;
+        int listCount = 0;
+        int uplimitData = 0;
+        bool canUp = true;
+        bool canDown = false;
+
         public ExpensesList()
         {
             InitializeComponent();
@@ -29,17 +25,24 @@ namespace DumpBudgetApplication
         }
 
 
-            int pageSize = 16;
-            int page = 0;
-            int listCount = 0;
-        int limitdata = 0;
-        int uplimitData = 0;
-        bool canUp = true;
-        bool canDown = false;
 
+        void CountDatas()
+        {
+            SQLiteConnection m_dbConnection;
+            m_dbConnection = new SQLiteConnection("Data Source=DBADataBase.sqlite;Version=3;");
+            m_dbConnection.Open();
+            string sql = "SELECT COUNT(*) AS Total FROM tblexpenses";
+
+            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                lbCount.Text = Convert.ToString(reader.GetInt32(reader.GetOrdinal("Total")) + " Total items found. Showing " +Convert.ToString(listCount)+" items.");
+            }
+            m_dbConnection.Close();
+        }
         void LoadItems()
         {
-            limitdata = pageSize;
             uplimitData = page * pageSize;
 
             SQLiteConnection m_dbConnection;
@@ -64,7 +67,7 @@ namespace DumpBudgetApplication
             if (ComboOrderby.SelectedIndex == 1)
             { sql += $@" ORDER BY t.price ASC"; }
 
-            sql += $@" LIMIT {limitdata} OFFSET {uplimitData}";
+            sql += $@" LIMIT {pageSize} OFFSET {uplimitData}";
 
 
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
@@ -81,7 +84,7 @@ namespace DumpBudgetApplication
             DataViewGrid.DataSource = items;
             listCount = items.Count;
             m_dbConnection.Close();
-
+            CountDatas();
             CheckButtons();
         }
         void LoadCategoryItems()
@@ -102,12 +105,13 @@ namespace DumpBudgetApplication
                 CategoryDTO itemc = new CategoryDTO();
                 itemc.Category = Convert.ToInt16(reader["Category"]);
                 itemc.Name = reader["Name"].ToString();
-                ComboCategory.Items.Add(itemc.Name);
-                itemc.Description = reader["Description"].ToString();
-                itemcs.Add(itemc);
+                ComboCategory.Items.Add(itemc);
             }
             m_dbConnection.Close();
         }
+
+
+
 
         class ItemsDTO
         {
@@ -119,10 +123,11 @@ namespace DumpBudgetApplication
         {
             public int Category { get; set; }
             public string Name { get; set; }
-            public string Description { get; set; }
         }
+
         void combocategory_SelectedIndexChanged(object sender, EventArgs e)
         {
+            page = 0;
             LoadItems();
         }
 
@@ -203,11 +208,11 @@ namespace DumpBudgetApplication
 
         private void DataViewGrid_MouseWheel(object sender, MouseEventArgs e)
         {
-            if (e.Delta > 0)
+            if (e.Delta < 0)
             {
                 btnUp.PerformClick();
             }
-            if (e.Delta < 0)
+            if (e.Delta > 0)
             {
                 btnDown.PerformClick();
             }

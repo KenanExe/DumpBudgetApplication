@@ -1,10 +1,5 @@
-using System;
 using System.Data.SQLite;
-using System.Globalization;
-using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using System.Xml.Linq;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
 namespace DumpBudgetApplication
 {
     public partial class Form1 : Form
